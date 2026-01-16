@@ -1,9 +1,23 @@
+---
+import Image from "astro/components/Image.astro";
+import image from '../../assets/images/foto-bob.jpg';
+---
+
 <section>
     <div>
         <h2>
             Oi <br>
             Eu sou o bob
         </h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore accusamus aliquam sit quasi natus necessitatibus qui sed fugit ipsa obcaecati autem repudiandae dolor, praesentium officiis delectus temporibus. Laborum, deleniti ducimus?</p>
+        <span>
+            <p>Siga-me nas redes sociais</p>
+            <span>
+                <a href="">Insta</a>
+                <a href="">Behance</a>
+            </span>
+        </span>
     </div>
     <img src="" alt="">
+    <Image src={image} alt={'Foto do Matheus, Bob'}/>
 </section>

@@ -7,12 +7,22 @@
     padding: 0;
 }
 
-html {
+html, body {
     overflow-x: hidden;
+}
+
+body {
     font-family: sans-serif;
 }
 
-main {
+:not(p) > a:not([role="link"]) {
+    padding: 1rem;
+    border: 1px solid black;
+    display: inline-block;
+}
+
+main > section:nth-child(1) {
+    padding-top: 6rem;
 }
 
 main > section {
@@ -57,11 +67,19 @@ span {
 
 @media (min-width: 767px) {
     main {
-        > section {
+        > section:has(>:not(section)) {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
             max-width: 70rem;
             margin: auto;
+        }
+        
+        > section:has(> section){
+            display: flex;
+
+            > section {
+                padding: 1rem;
+            }
         }
     }
 }

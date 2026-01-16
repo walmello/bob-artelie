@@ -1,34 +1,36 @@
+---
+import { gallery as g } from "../../../../shared/scripts/Baserow"
+import { Image } from "astro:assets"
+const gallery = await g.get()
+---
+
 <section>
     <div>
         <h2>Galeria</h2>
         <div>
-            <img src="" alt="" height="200">
-            <img src="" alt="" height="300">
-            <img src="" alt="" height="100">
-            <img src="" alt="" height="200">
-            <img src="" alt="" height="200">
-            <img src="" alt="" height="200">
+            {
+                gallery.map((image: any) => <Image src={image.Imagem[0].url} alt={''} inferSize={true}/>)
+            }
         </div>
     </div>
 </section>
 
 <style style="scss">
-    section {
+    section {        
         > div {
             > div {
                 display: block;
                 column-count: 2;
-
+                
                 @media (min-width: 767px) {
                     column-count: 3;
                 }
                 
-                > img {
+                * {
                     width: 100%;
-                    max-width: 100%;
-                    margin-right: 1rem;
-                    margin-bottom: 1rem;
-                }                
+                    margin-bottom: 0.5rem;
+                    height: fit-content;
+                }
             }
         }
     }

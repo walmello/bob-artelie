@@ -1,26 +1,23 @@
+---
+import { testimonials as t } from "../../../../shared/scripts/Baserow"
+const testimonials = await t.get()
+---
 <section>
     <div>
         <h2>Depoimentos</h2>
     </div>
     <section>
-        <article>
+        {
+            testimonials.map((test: any) => <article>
             <small>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio quo reprehenderit suscipit optio at dicta quisquam reiciendis delectus assumenda ad minima fuga, quos repudiandae numquam excepturi odit dolorum labore voluptate.</p>
+                <p>{test.Depoimento}</p>
                 <span>
-                    <img src="" alt="">
-                    <p>Nome do aluno</p>
+                    <img src={test.Imagem[0].url} alt=""/>
+                    <p>{test.Name}</p>
                 </span>
             </small>
-        </article>
-        <article>
-            <small>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio quo reprehenderit suscipit optio at dicta quisquam reiciendis delectus assumenda ad minima fuga, quos repudiandae numquam excepturi odit dolorum labore voluptate.</p>
-                <span>
-                    <img src="" alt="">
-                    <p>Nome do aluno</p>
-                </span>
-            </small>
-        </article>
+        </article>)
+        }
     </section>
 </section>
 
