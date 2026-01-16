@@ -16,7 +16,7 @@ const courses = await c.take(4)
         { 
         courses.map((course: any) => 
             <article>          
-                <Image src={course.Thumbnail[0].url} alt=""/>
+                <Image src={course.Thumbnail[0].url} alt="" inferSize={true}/>
                 <div>
                     <small>R$ {course['Preço']} </small>
                     <h3>{ course['Name']}</h3>
