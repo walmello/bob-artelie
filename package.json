@@ -1,0 +1,12 @@
+{
+  "name": "bob-artelie",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.0",
+  "scripts": {
+    "dev": "pnpm recursive run dev"
+  }
+}

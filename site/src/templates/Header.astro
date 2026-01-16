@@ -1,0 +1,111 @@
+<div x-data="{open: false}">
+    <header>
+        <nav>
+            <span id="menu-mobile">
+                <a href="">LOGO</a>
+                <a href="#" @click="open = !open" style="font-size: 2rem;">
+                    <template x-if="!open">
+                        <span>☰</span>
+                    </template>
+                    <template x-if="open">
+                        <span>✕</span>
+                    </template>
+                </a>
+            </span>
+            <div x-cloak id="menu" :style="{display: open ? 'flex' : 'none'}">
+                <ul>
+                    <li><a role="link" href="#">Cursos</a></li>
+                    <li><a role="link" href="#">Cursos</a></li>
+                    <li><a role="link" href="#">Cursos</a></li>
+                </ul>
+                <a href="">LOGO</a>
+                <ul>
+                    <li><a href={import.meta.env.APP_URL}>Login</a></li>
+                    <li><a href={import.meta.env.APP_URL}>Registrar</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+</div>
+
+<style lang="scss">
+    header {
+        position: fixed;
+        width: 100%;
+        z-index: 999;
+    }
+
+    nav {
+        background-color: white;
+        border-bottom: 1px solid black;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        #menu {
+            > a {
+                display: none;
+            }
+
+            ul {
+                display: flex;
+                flex-direction: column;
+                list-style: none;
+                gap: 1rem;
+
+                > * {
+                    padding-block: 1rem;
+                }
+            }
+        }
+        
+        a {
+            color: black;
+            text-decoration: none;
+        }
+        
+        > * {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+    }
+    
+    @media (min-width: 767px) {
+        nav {
+            #menu-mobile {
+                display: none;
+            }
+            
+            #menu {
+                display: grid !important;
+                grid-template-columns: 5fr 1fr 5fr;
+                
+                > a {
+                    display: flex;
+                }
+
+                > ul {
+                    flex-direction: row;
+                }
+                
+                > * {
+                    display: flex;
+                    list-style: none;
+                    gap: 1rem;
+                }
+                
+                
+                > *:nth-child(2){
+                    margin: auto;
+                }
+                
+                > *:nth-child(3){
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+    
+</style>

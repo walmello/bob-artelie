@@ -1,0 +1,64 @@
+<section>
+    <div>
+        <h2>
+            Cursos sob medida <br>
+            De artista para artista
+        </h2>
+    </div>
+    <section>
+        <article>              
+            <img src="" alt="">
+            <div>
+                <small>$preço</small>
+                <h3>Nome do curso</h3>
+                <a href="#">Ver curso</a>
+            </div>
+        </article>
+        <article>              
+            <img src="" alt="">
+            <div>
+                <small>$preço</small>
+                <h3>Nome do curso</h3>
+                <a href="#">Ver curso</a>
+            </div>
+        </article>
+        <article>              
+            <img src="" alt="">
+            <div>
+                <small>$preço</small>
+                <h3>Nome do curso</h3>
+                <a href="#">Ver curso</a>
+            </div>
+        </article>
+        <article>              
+            <img src="" alt="">
+            <div>
+                <small>$preço</small>
+                <h3>Nome do curso</h3>
+                <a href="#">Ver curso</a>
+            </div>
+        </article>
+    </section>
+</section>
+
+<style lang="scss">
+    section:has(:not(article)){
+        display: flex;
+    }
+
+    article {
+        position: relative;
+        
+        div {
+            position: relative;
+        }
+        
+        img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>

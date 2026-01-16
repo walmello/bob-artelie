@@ -1,0 +1,13 @@
+---
+import Footer from "./Footer.astro"
+import Header from "./Header.astro"
+import Page from "../../../shared/components/Page.astro"
+---
+
+<Page>
+    <Header/>
+    <main>
+        <slot></slot>
+    </main>
+    <Footer/>   
+</Page>

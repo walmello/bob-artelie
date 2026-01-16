@@ -1,0 +1,16 @@
+{
+  "name": "site",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@picocss/pico": "^2.1.1",
+    "astro": "^5.16.9",
+    "sass": "^1.97.2"
+  }
+}

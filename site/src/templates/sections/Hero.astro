@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets'
+import img from '../../../../shared/assets/images/hero.png'
+---
+
+<section id="hero">
+    <div>
+        <Image src={img} alt={''}/>
+    </div>
+    <div>
+        <h1>
+            <div>Pense</div>
+            <div>Respire</div>
+            <div>Se Inspire!</div>
+        </h1>
+    </div>
+</section>
+
+<style lang="scss">    
+    section {
+        align-items: center;
+        position: relative;
+        
+        :global(img){
+            display: block;
+            object-fit: contain;
+            object-position: bottom;
+            aspect-ratio: 1/1;
+            height: max(40vw, 20rem);
+            width: 100%;
+        }
+    }
+
+    @media (min-width: 767px) {
+        h1 {
+            text-align: right;
+            font-size: max(5vw, 2rem);
+        }        
+    }
+
+</style>
