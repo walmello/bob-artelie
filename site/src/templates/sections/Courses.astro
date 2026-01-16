@@ -1,5 +1,6 @@
 ---
 import { courses as c } from '../../../../shared/scripts/Baserow';
+import { Image } from 'astro:assets';
 
 const courses = await c.take(4)
 ---
@@ -14,8 +15,8 @@ const courses = await c.take(4)
     <section>
         { 
         courses.map((course: any) => 
-            <article>              
-                <img src={course.Thumbnail[0].url} alt=""/>
+            <article>          
+                <Image src={course.Thumbnail[0].url} alt=""/>
                 <div>
                     <small>R$ {course['Preço']} </small>
                     <h3>{ course['Name']}</h3>
