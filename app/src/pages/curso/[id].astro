@@ -1,0 +1,57 @@
+---
+import Layout from "../../templates/Layout.astro";
+import { courses } from "../../../../shared/scripts/Baserow";
+
+export async function getStaticPaths() {
+    return (await courses.get()).map((course: any) => {
+        return { 
+            params: {id: course.id }, 
+            props: {
+                nome: course.Name,
+                link: course['Link de Pagamento']
+            }
+        }
+    })
+}
+
+const { id } = Astro.params;
+const { nome, link } = Astro.props;
+
+
+---
+
+<script define:vars={{id, link}}>
+    window.course_id = id
+    window.course_link = link
+</script>
+
+<Layout>
+    <section x-data="{
+        course: {},
+        hasCourse: false,
+        async init(){
+            this.course = this.user.courses.filter(course => course.id == course_id )[0]
+            this.hasCourse = this.user.courses.some(course => course.id == course_id)
+        }
+    }">
+    <template x-if="!hasCourse">
+        <div>
+            <p>NÃO TEM CURSO</p>
+            <a :href="course_link + `?locked_prefilled_email=${user.data.email}&client_reference_id=${user.profile.id}`" target="_blank">Comprar</a>
+        </div>
+    </template>
+    <div>
+        <h1>{ id }</h1>
+        <h1>{ nome }</h1>
+    </div>
+    <section>
+        <div>
+        <template x-for="aula in course.Aulas">
+            <div>
+                <a role="link" :href="'/curso/' + course.id + '/' + aula.id" x-text="aula.value"></a>
+            </div>
+        </template>
+        </div>
+    </section>
+</section>
+</Layout>

@@ -44,6 +44,7 @@ export class User {
         this.user = await this.get()
         if(this.user){
             this.authenticated = true
+            this.data = await this.get()
             this.profile = await this.getProfile()    
             this.courses = await this.getCourses()
             this.certifications = await this.getCertifications() 
@@ -91,15 +92,22 @@ export class User {
     }
     
     async getCourses(){
+        let coursesList = (await courses.getByUserId(this.profile.id)).results
+        return coursesList
+        /*
         let coursesList = JSON.parse(localStorage.getItem('courses'))
+        console.log(coursesList)
+        localStorage.setItem('courses', JSON.stringify(coursesList))
+        return coursesList
         if(coursesList){
-            return coursesList
+        return coursesList
         } else {
             coursesList = (await courses.getByUserId(this.profile.id)).results
-            console.log(coursesList)
-            localStorage.setItem('courses', JSON.stringify(coursesList))
-            return coursesList
+        console.log(coursesList)
+        localStorage.setItem('courses', JSON.stringify(coursesList))
+        return coursesList
         }
+        */
     }
     
     async getCertifications(){

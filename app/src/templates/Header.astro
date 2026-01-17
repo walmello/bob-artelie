@@ -11,9 +11,9 @@ import Navbar from "../../../shared/components/Navbar.astro"
     <template x-if="user.authenticated">
         <div>
             <ul>
-                <li><a role="link" href="#">Home</a></li>
-                <li><a role="link" href="#">Cursos</a></li>
-                <li><a role="link" href="#">Certificados</a></li>
+                <li><a role="link" href="/">Home</a></li>
+                <li><a role="link" href="/cursos">Cursos</a></li>
+                <li><a role="link" href="/certificados">Certificados</a></li>
             </ul>
             <ul>
                 <li><a role="link" href="#" @click="await auth.logout() ; window.location.href = ''">Sair</a></li>

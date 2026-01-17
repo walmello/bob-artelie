@@ -1,0 +1,77 @@
+---
+import Layout from "../../../templates/Layout.astro";
+import { courses, lessons } from "../../../../../shared/scripts/Baserow";
+
+export async function getStaticPaths(){
+    const paths = (await lessons.get()).map((lesson: any) => 
+    lesson.Cursos.map((course: any) => ({
+        params: {id: course.id, aula: lesson.id },
+        props: {
+            nome: lesson.Name,
+            curso: course.value
+        }
+    }))).flat(1)    
+    return paths
+}
+
+const { id, aula } = Astro.params;
+const { nome, link } = Astro.props;
+const lesson = await lessons.get(aula)
+
+---
+
+<script define:vars={{id, link, lesson}}>
+    window.course_id = id
+    window.course_link = link
+    window.lesson = lesson
+</script>
+
+<script>
+    import { lessons } from "../../../../../shared/scripts/Baserow";
+    (window as any).lessons = lessons
+</script>
+
+
+
+<Layout>
+    <section x-data="{
+        course: {},
+        aula: {},
+        watch: false,
+        hasCourse: false,
+        async init(){
+            this.course = this.user.courses.filter(course => course.id == course_id )[0]
+            this.hasCourse = this.user.courses.some(course => course.id == course_id)
+            if(!this.hasCourse){
+                window.location.href = '/404'
+            }
+            this.$watch('watch', () => {
+                if(this.watch){
+                    alert('enviar pro servidor que a aula foi assistida')
+                }
+                if(!this.watch){
+                    alert('enviar pro servidor que a aula nao tá mais assistida')
+                }
+            })
+        }
+    }">
+    <div>
+        <h1>{ aula }</h1>
+        <h1>{ nome }</h1>
+        <iframe width="560" height="315" :src="lesson.Videos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <section>
+        <label>
+            <input type="checkbox" x-model="watch">
+            <span>Marcar como assistido</span>
+        </label>
+        <div>
+            <template x-for="aula in course.Aulas">
+                <div>
+                    <a role="link" :href="'/curso/' + course.id + '/' + aula.id" x-text="aula.value"></a>
+                </div>
+            </template>
+        </div>
+    </section>
+</section>
+</Layout>

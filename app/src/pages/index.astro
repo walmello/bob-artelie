@@ -17,7 +17,7 @@ import Layout from '../templates/Layout.astro'
                 <article>
                     <div>
                         <h2 x-text="course.Name"></h2>
-                        <a role="link" :href="'/curso'">Ver curso</a>
+                        <a role="link" :href="'/curso/' + course.id">Ver curso</a>
                     </div>
                 </article>
             </template>

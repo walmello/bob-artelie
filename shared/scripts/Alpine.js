@@ -5,17 +5,13 @@ export const user = () => ({
     user: {},
     async init(){
         this.user = await u.init()
-        console.log(this.user)
+        window.user = await this.user
+
         if(!this.user.authenticated){
             const path = window.location.pathname.replace(/\/$/, "") || "/"
             if(path !== '/login' && path !== '/criar-conta'){
                 window.location.href = '/login'
             }
-            /*
-            if(window.location.pathname !== '/login' && window.location.pathname !== '/criar-conta'){
-                window.location.href = '/login'
-            }
-            */
         }
     }
 })
