@@ -12,11 +12,9 @@ import Footer from '../../../shared/components/Footer.astro'
 <Page>
     <div x-data="user">
         <Header/>
-        <template x-if="user.authenticated">
             <main>
                 <slot/>
             </main>
-        </template>
         <Footer/>               
     </div>
 </Page>
