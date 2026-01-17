@@ -6,8 +6,9 @@ export const user = () => ({
         this.user = await u.init()
         console.log(this.user)
         if(!this.user.authenticated){
-            if(window.location.pathname !== '/login' && window.location.pathname !== '/criar-conta'){
-                alert('deve redirecionar')
+            const path = window.location.pathname
+            if(path !== '/login' && path !== '/criar-conta'){
+                console.log(path)
             }
             /*
             if(window.location.pathname !== '/login' && window.location.pathname !== '/criar-conta'){
