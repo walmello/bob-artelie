@@ -1,6 +1,7 @@
 import { user as u, auth } from "./Supabase.js"
 
 export const user = () => ({
+    path: window.location.pathname.replace(/\/$/, "") || "/",
     user: {},
     async init(){
         this.user = await u.init()
