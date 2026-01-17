@@ -8,20 +8,30 @@ import Navbar from "../../../shared/components/Navbar.astro"
 </script>
 
 <Navbar>
-    <div>
-        <ul>
-            <li><a role="link" href="#">Home</a></li>
-            <li><a role="link" href="#">Meus Cursos</a></li>
-            <li><a role="link" href="#">Novos Cursos</a></li>
-            <li><a role="link" href="#">Certificados</a></li>
-        </ul>
-        <ul>
-            <li><a role="link" href="/login">Login</a></li>
-            <li><a role="link" href="/criar-conta">Criar Conta</a></li>
-            <li><a role="link" href="#" @click="await auth.logout() ; window.location.href = ''">Sair</a></li>
-            <li><a role="link" href={import.meta.env.SITE_URL}>Ir para o site</a></li>
-        </ul>
-    </div>
+    <template x-if="user.authenticated">
+        <div>
+            <ul>
+                <li><a role="link" href="#">Home</a></li>
+                <li><a role="link" href="#">Cursos</a></li>
+                <li><a role="link" href="#">Certificados</a></li>
+            </ul>
+            <ul>
+                <li><a role="link" href="#" @click="await auth.logout() ; window.location.href = ''">Sair</a></li>
+                <li><a role="link" href={import.meta.env.SITE_URL}>Ir para o site</a></li>
+            </ul>
+        </div>
+    </template>
+    <template x-if="!user.authenticated">
+        <div>
+            <ul>
+                <li><a role="link" href={import.meta.env.SITE_URL}>Home</a></li>
+            </ul>
+            <ul>
+                <li><a role="link" href="/login">Login</a></li>
+                <li><a role="link" href="/criar-conta">Criar Conta</a></li>
+            </ul>
+        </div>
+    </template>
 </Navbar>
 
 <style>
@@ -67,26 +77,26 @@ import Navbar from "../../../shared/components/Navbar.astro"
             }
             /*
             > a {
-                display: flex;
+            display: flex;
             }
             
             > ul {
-                flex-direction: row;
+            flex-direction: row;
             }
             
             > * {
-                display: flex;
-                list-style: none;
-                gap: 1rem;
+            display: flex;
+            list-style: none;
+            gap: 1rem;
             }
             
             
             > *:nth-child(2){
-                margin: auto;
+            margin: auto;
             }
             
             > *:nth-child(3){
-                margin-left: auto;
+            margin-left: auto;
             }
             */
         }
