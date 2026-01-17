@@ -4,11 +4,13 @@ export const user = () => ({
     user: {},
     async init(){
         this.user = await u.init()
+        /*
         if(!this.user.authenticated){
             if(window.location.pathname !== '/login' && window.location.pathname !== '/criar-conta') {
                 window.location.href = '/login'
             }
         }
+        */
         console.log(this.user)
     }
 })
