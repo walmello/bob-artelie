@@ -7,8 +7,13 @@ export const user = () => ({
         console.log(this.user)
         if(!this.user.authenticated){
             if(window.location.pathname !== '/login' && window.location.pathname !== '/criar-conta'){
+                alert('deve redirecionar')
+            }
+            /*
+            if(window.location.pathname !== '/login' && window.location.pathname !== '/criar-conta'){
                 window.location.href = '/login'
             }
+            */
         }
     }
 })
