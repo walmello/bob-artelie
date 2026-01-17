@@ -26,10 +26,29 @@ class Auth {
         const { data, error } = await supabase.auth.resetPasswordForEmail(email)
         return error || data
     }    
+    
+    async session(){
+        const { data, error } = await supabase.auth.getSession()
+        return error || data.session
+    }
 }
 
 export class User {
     constructor(){
+        this.authenticated = false
+        this.profile = null
+        this.init()
+    }
+    
+    async init(){
+        this.user = await this.get()
+        if(this.user){
+            this.authenticated = true
+            this.profile = await this.getProfile()    
+            this.courses = await this.getCourses()
+            this.certifications = await this.getCertifications() 
+        }
+        return this
     }
     
     /*
@@ -62,8 +81,8 @@ export class User {
     
     async get(){
         const { data: { user }, error } = await supabase.auth.getUser()
-        if(error) return null
-        return user
+        if(error) console.log(error)
+            return user
     }
     
     async hasCourse(id){
@@ -71,45 +90,62 @@ export class User {
         return courses.includes(id)
     }
     
-    async courses(){
-        const user = await this.get()
-        const profile = await this.profile()
-        console.log('prof : ', profile)
-        /*
-        if(!user.profile?.id) return []
-        return (await courses.getByUserId(user.profile.id)).results
-        */
+    async getCourses(){
+        let coursesList = JSON.parse(localStorage.getItem('courses'))
+        if(coursesList){
+            return coursesList
+        } else {
+            coursesList = (await courses.getByUserId(this.profile.id)).results
+            console.log(coursesList)
+            localStorage.setItem('courses', JSON.stringify(coursesList))
+            return coursesList
+        }
     }
-
-    async certifications(){
-        if(!this.profile?.id) return []
-        return await courses.getByUserId(this.profile.id, 'Certificados')
+    
+    async getCertifications(){
+        let coursesList = JSON.parse(localStorage.getItem('certifications'))
+        if(coursesList){
+            return coursesList
+        } else {
+            if(!this.profile?.id) return []
+            coursesList = (await courses.getByUserId(this.profile.id, 'Certificados')).results
+            localStorage.setItem('certifications', JSON.stringify(coursesList))
+            return coursesList
+        }
     }
-
-
-    async profile(){
+    
+    
+    async getProfile(){
         const { data: { session: {access_token} }, error } = await supabase.auth.getSession();
         const users = profiles(access_token) 
         const user = await this.get()
-
-        const profile = await users.request({
-            query: {
-                user_field_names: true,
-                filter__supabase_id__equal: user.id
-            }
-        }) 
-
-        if(profile.results.length > 0){
-            return profile.results[0]
+        
+        let profile = JSON.parse(localStorage.getItem('profile'))
+        
+        if(profile){
+            return profile
         } else {
-            const request = await users.request({
-                method: 'POST',
-                body: {
-                    supabase_id: user.id,
-                    Nome: user.data.user_metadata.name
+            profile = await users.request({
+                query: {
+                    user_field_names: true,
+                    filter__supabase_id__equal: user.id
                 }
-            })
-            return request
+            }) 
+            
+            if(profile.results.length > 0){
+                JSON.parse(localStorage.setItem('profile', JSON.stringify(profile.results[0])))
+                return profile.results[0]
+            } else {
+                const request = await users.request({
+                    method: 'POST',
+                    body: {
+                        supabase_id: user.id,
+                        Nome: user.data.user_metadata.name
+                    }
+                })
+                JSON.parse(localStorage.setItem('profile', JSON.stringify(request)))
+                return request
+            }
         }
     }
     
@@ -128,6 +164,7 @@ export class User {
     }
     
     async logout(){
+        localStorage.clear();
         await supabase.auth.signOut();
     }
     

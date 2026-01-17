@@ -5,16 +5,18 @@ import Footer from '../../../shared/components/Footer.astro'
 ---
 
 <script>
-    import { user } from '../../../shared/scripts/Alpine';    
+    import { user } from '../../../shared/scripts/Alpine';
     (window as any).user = user
 </script>
 
 <Page>
     <div x-data="user">
         <Header/>
-        <main>
-            <slot></slot>
-        </main>
+        <template x-if="user.authenticated">
+            <main>
+                <slot/>
+            </main>
+        </template>
         <Footer/>               
     </div>
 </Page>

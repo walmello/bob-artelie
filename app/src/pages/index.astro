@@ -3,35 +3,39 @@ import Layout from '../templates/Layout.astro'
 ---
 
 <Layout>
-    <section x-data="{
-        profile: {},
-        loading: true,
-        async init(){
-            this.profile = await this.user.profile()
-            this.loading = false
-        }
-    }">
+    <section>
         <div>
-            <h1 x-cloak x-show="!loading">Bem vindo <span x-text="profile.Nome"></span>!</h1>
+            <h1>Bem vindo <span x-text="user.profile.Nome"></span>!</h1>
         </div>
     </section>
-    <section x-data="{
-        courses: [],
-        loading: true,
-        async init(){
-            this.courses = await this.user.courses()
-            console.log(await this.courses)
-            this.loading = false
-        }
-    }">
+    <section>
         <div>
             <h2>Meus cursos</h2>
         </div>
-        <template x-for="course in courses">
-            <article>
-                <span x-text="courses"></span>
-            </article>
-        </template>
+        <section>
+            <template x-for="course in user.courses">
+                <article>
+                    <div>
+                        <h2 x-text="course.Name"></h2>
+                        <a role="link" :href="'/curso'">Ver curso</a>
+                    </div>
+                </article>
+            </template>
+        </section>
+    </section>
+    <section>
+        <div>
+            <h2>Meus certificados</h2>
+        </div>
+        <section>
+            <template x-for="certification in user.certifications">
+                <article>
+                    <div>
+                        <p x-text="certification.Name"></p>
+                        <a role="link" :href="'/curso'">Ver curso</a>
+                    </div>
+                </article>
+            </template>
         </section>
     </section>
 </Layout>

@@ -13,7 +13,7 @@ import Layout from "../templates/Layout.astro";
 
         </div>
         <div>
-            <form x-data="login" @submit.prevent="submit">
+            <form x-data="login" @submit.prevent="submit()" onsubmit="return false;">
                 <h1>Fazer Login</h1>
                 <label>
                     <span>Email:</span>                    
@@ -28,7 +28,7 @@ import Layout from "../templates/Layout.astro";
                 </label>
                 <label>
                     <span>Senha:</span>                    
-                    <input type="password" name="senha" x-model="password.input">
+                    <input type="password" name="password" x-model="password.input">
                     <small>
                         <ul>
                             <template x-for="message in password.feedback">
@@ -37,7 +37,7 @@ import Layout from "../templates/Layout.astro";
                         </ul>                        
                     </small>
                 </label>
-                <button type="submit">Entrar</button>
+                <button>Entrar</button>
             </form>
         </div>
     </section>

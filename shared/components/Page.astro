@@ -4,6 +4,7 @@ import "../assets/styles/layout.scss"
 
 <script>
 import Alpine from "alpinejs";
+(window as any).Alpine = Alpine
 Alpine.start();
 </script>
 
@@ -18,3 +19,7 @@ Alpine.start();
     <slot/>
 </body>
 </html>
+
+<style is:global>
+    [x-cloak] { display: none !important; }
+</style>
