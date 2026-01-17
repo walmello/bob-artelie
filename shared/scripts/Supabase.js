@@ -120,10 +120,10 @@ export class User {
         const users = profiles(access_token) 
         const user = await this.get()
         
-        let profile = JSON.parse(localStorage.getItem('profile'))
+        let profile = localStorage.getItem('profile')
         
         if(profile){
-            return profile
+            return JSON.parse(profile)
         } else {
             profile = await users.request({
                 query: {
@@ -133,7 +133,7 @@ export class User {
             }) 
             
             if(profile.results.length > 0){
-                JSON.parse(localStorage.setItem('profile', JSON.stringify(profile.results[0])))
+                localStorage.setItem('profile', JSON.stringify(profile.results[0]))
                 return profile.results[0]
             } else {
                 const request = await users.request({
@@ -143,7 +143,7 @@ export class User {
                         Nome: user.data.user_metadata.name
                     }
                 })
-                JSON.parse(localStorage.setItem('profile', JSON.stringify(request)))
+                localStorage.setItem('profile', JSON.stringify(request))
                 return request
             }
         }
