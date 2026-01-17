@@ -3,34 +3,35 @@ import Layout from '../templates/Layout.astro'
 ---
 
 <Layout>
-    <section>
+    <section x-data="{
+        profile: {},
+        loading: true,
+        async init(){
+            this.profile = await this.user.profile()
+            this.loading = false
+        }
+    }">
         <div>
-            <h1>Bem vindo user!</h1>
+            <h1 x-cloak x-show="!loading">Bem vindo <span x-text="profile.Nome"></span>!</h1>
         </div>
     </section>
-    <section>
+    <section x-data="{
+        courses: [],
+        loading: true,
+        async init(){
+            this.courses = await this.user.courses()
+            console.log(await this.courses)
+            this.loading = false
+        }
+    }">
         <div>
             <h2>Meus cursos</h2>
         </div>
-        <section>
+        <template x-for="course in courses">
             <article>
-                Curso 1
+                <span x-text="courses"></span>
             </article>
-            <article>
-                Curso 1
-            </article>
-            <article>
-                Curso 1
-            </article>
-            <article>
-                Curso 1
-            </article>
-            <article>
-                Curso 1
-            </article>
-            <article>
-                Curso 1
-            </article>
+        </template>
         </section>
     </section>
 </Layout>

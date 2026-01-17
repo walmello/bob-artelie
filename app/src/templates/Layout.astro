@@ -1,13 +1,20 @@
 ---
 import Page from '../../../shared/components/Page.astro'
 import Header from './Header.astro'
-import Footer from './Footer.astro'
+import Footer from '../../../shared/components/Footer.astro'
 ---
 
+<script>
+    import { user } from '../../../shared/scripts/Alpine';    
+    (window as any).user = user
+</script>
+
 <Page>
-    <Header/>
-    <main>
-        <slot></slot>
-    </main>
-    <Footer/>
+    <div x-data="user">
+        <Header/>
+        <main>
+            <slot></slot>
+        </main>
+        <Footer/>               
+    </div>
 </Page>

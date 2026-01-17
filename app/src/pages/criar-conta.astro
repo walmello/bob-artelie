@@ -1,0 +1,70 @@
+---
+import Layout from "../templates/Layout.astro";
+---
+
+<script>
+    import { register } from '../../../shared/scripts/Alpine'
+    (window as any).register = register
+</script>
+
+<Layout>
+    <section>
+        <div>
+            
+        </div>
+        <div>
+            <form x-data="register" @submit.prevent="submit">
+                <h1>Criar Conta</h1>
+                <label>
+                    <span>Nome:</span>                    
+                    <input type="text" name="nome" x-model="name.input">
+                    <small>
+                        <ul>
+                            <template x-for="message in name.feedback">
+                                <li x-text="message"></li>
+                            </template>
+                        </ul>                        
+                    </small>
+                </label>
+                <label>
+                    <span>Email:</span>                    
+                    <input type="email" name="email" x-model="email.input">
+                    <small>
+                        <ul>
+                            <template x-for="message in email.feedback">
+                                <li x-text="message"></li>
+                            </template>
+                        </ul>                        
+                    </small>
+                </label>
+                <label>
+                    <span>Senha:</span>                    
+                    <input type="password" name="senha" x-model="password.input">
+                    <small>
+                        <ul>
+                            <template x-for="message in password.feedback">
+                                <li x-text="message"></li>
+                            </template>
+                        </ul>                        
+                    </small>
+                </label>
+                <label>
+                    <span>Confirmar Senha:</span>                    
+                    <input type="password" name="senha" x-model="confirm.input">
+                    <small>
+                        <ul>
+                            <template x-for="message in confirm.feedback">
+                                <li x-text="message"></li>
+                            </template>
+                        </ul>                        
+                    </small>
+                </label>
+                <label>
+                    <input type="checkbox" x-model="accept">
+                    <span>Aceito os termos e etc..</span>
+                </label>
+                <button type="submit" :disabled="!accept">Entrar</button>
+            </form>
+        </div>
+    </section>
+</Layout>

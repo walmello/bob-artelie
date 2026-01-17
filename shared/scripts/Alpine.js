@@ -1,0 +1,81 @@
+import { user as u, auth } from "./Supabase.js"
+
+export const user = () => ({
+    user: {},
+    async init(){
+        this.user = u
+    }
+})
+
+export const login = () => ({
+    email: {
+        input: '',
+        feedback: []
+    },
+    password: {
+        input: '',
+        feedback: []
+    },
+    validate(){
+        this.email.feedback = []
+        this.password.feedback = []
+
+        if (!this.email.input) this.email.feedback.push('digite um email')
+        if (!this.password.input) this.password.feedback.push('digite uma senha')
+
+        if (this.email.feedback.lenght > 0) return false
+        if (this.password.feedback.lenght > 0) return false
+        else return true
+    },
+
+    async submit(){
+        const validation = this.validate()
+        await auth.login(this.email.input, this.password.input)
+        window.location.href = '/'
+    }
+})
+
+export const register = () => ({
+    name: {
+        input: '',
+        feedback: []
+    },
+    email: {
+        input: '',
+        feedback: []
+    },
+    password: {
+        input: '',
+        feedback: []
+    },
+    confirm: {
+        input: '',
+        feedback: []
+    },
+    accept: false,
+
+    validate(){
+        this.name.feedback = []
+        this.email.feedback = []
+        this.password.feedback = []
+        this.confirm.feedback = []
+
+        if (!this.name.input) this.name.feedback.push('digite um nome')
+        if (!this.email.input) this.email.feedback.push('digite um email')
+        if (!this.password.input) this.password.feedback.push('digite uma senha')
+        if (!this.confirm.input) this.confirm.feedback.push('confirme a senha')
+        if (this.password.input !== this.confirm.input) this.confirm.feedback.push('as senhas não são iguais')
+
+        if (this.name.feedback.length > 0) return false
+        if (this.email.feedback.length > 0) return false
+        if (this.password.feedback.length > 0) return false
+        if (this.confirm.feedback.length > 0) return false
+        else return true
+    },
+
+    async submit(){
+        const validation = this.validate()
+        await auth.signUp(this.name.input, this.email.input, this.password.input)
+        window.location.href = '/'
+    }
+})

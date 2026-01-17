@@ -4,7 +4,7 @@ import config from './config'
 
 const supabase = createClient(config.supabase.url, config.supabase.anon_key)
 
-export class Auth {
+class Auth {
     async login(email, password){
         const {data, error} = await supabase.auth.signInWithPassword({ email, password })
         return error || data
@@ -30,25 +30,6 @@ export class Auth {
 
 export class User {
     constructor(){
-        this.loading = true
-        this.authenticated = false
-    }
-    
-    async init(){
-        this.data = await this.get()
-        if(this.data){
-            this.id = await this.data?.id 
-            this.profile = await this.getProfile()
-            this.courses = await this.getCourses()
-            this.certifications = await this.getCertifications()
-            this.authenticated = true
-        } else {
-            this.profile = null
-            this.courses = null
-            this.certifications = null
-        }
-        this.loading = false
-        return this
     }
     
     /*
@@ -90,36 +71,42 @@ export class User {
         return courses.includes(id)
     }
     
-    async getCourses(){
-        if(!this.profile?.id) return []
-        return (await courses.getByUserId(this.profile.id)).results
+    async courses(){
+        const user = await this.get()
+        const profile = await this.profile()
+        console.log('prof : ', profile)
+        /*
+        if(!user.profile?.id) return []
+        return (await courses.getByUserId(user.profile.id)).results
+        */
     }
 
-    async getCertifications(){
+    async certifications(){
         if(!this.profile?.id) return []
         return await courses.getByUserId(this.profile.id, 'Certificados')
     }
 
 
-    async getProfile(){
+    async profile(){
         const { data: { session: {access_token} }, error } = await supabase.auth.getSession();
-        const users = profiles(access_token)     
+        const users = profiles(access_token) 
+        const user = await this.get()
 
         const profile = await users.request({
             query: {
                 user_field_names: true,
-                filter__supabase_id__equal: this.id
+                filter__supabase_id__equal: user.id
             }
-        })
-        
+        }) 
+
         if(profile.results.length > 0){
             return profile.results[0]
         } else {
             const request = await users.request({
                 method: 'POST',
                 body: {
-                    supabase_id: this.id,
-                    Nome: this.data.user_metadata.name
+                    supabase_id: user.id,
+                    Nome: user.data.user_metadata.name
                 }
             })
             return request

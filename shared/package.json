@@ -1,0 +1,8 @@
+{
+  "name": "shared",
+  "type": "module",
+  "version": "0.0.1",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.90.1"
+  }
+}

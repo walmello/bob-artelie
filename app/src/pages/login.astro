@@ -1,0 +1,44 @@
+---
+import Layout from "../templates/Layout.astro";
+---
+
+<script>
+    import { login } from '../../../shared/scripts/Alpine'
+    (window as any).login = login
+</script>
+
+<Layout>
+    <section>
+        <div>
+
+        </div>
+        <div>
+            <form x-data="login" @submit.prevent="submit">
+                <h1>Fazer Login</h1>
+                <label>
+                    <span>Email:</span>                    
+                    <input type="email" name="email" x-model="email.input">
+                    <small>
+                        <ul>
+                            <template x-for="message in email.feedback">
+                                <li x-text="message"></li>
+                            </template>
+                        </ul>                        
+                    </small>
+                </label>
+                <label>
+                    <span>Senha:</span>                    
+                    <input type="password" name="senha" x-model="password.input">
+                    <small>
+                        <ul>
+                            <template x-for="message in password.feedback">
+                                <li x-text="message"></li>
+                            </template>
+                        </ul>                        
+                    </small>
+                </label>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </section>
+</Layout>

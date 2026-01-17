@@ -5,6 +5,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
@@ -15,11 +16,34 @@ body {
     font-family: sans-serif;
 }
 
-:not(p) > a:not([role="link"]) {
+body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+body > div {
+    flex-grow: 1;
+}
+
+main {
+    flex-grow: 1;
+}
+
+:not(p) > a:not([role="link"]), button {
+    display: inline-block;
     padding: 1rem;
     border: 1px solid black;
     display: inline-block;
+    cursor: pointer;
+
+    :hover {
+        background-color: antiquewhite;
+    }
 }
+
+
 
 main > section:nth-child(1) {
     padding-top: 6rem;
@@ -47,14 +71,48 @@ section:has(> article) {
 }
 
 
-article {
+article, form {
     padding: 1rem;
     border: 1px solid black;
 }
 
-div, span {
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    
+    label {
+        display: flex;
+        flex-direction: column;
+        span {
+            padding: 0.5rem;
+            padding-left: 0;
+        }
+        input {
+            font: inherit;
+            border: 1px solid black;
+            padding: 1rem;
+        }
+    }
+
+    input[type='checkbox']{
+        width: 1.5rem;
+        border: 1px solid black;
+    }
+
+    label:has(input[type='checkbox']){
+        flex-direction: row; gap: 1rem
+    }
+}
+
+div {
     display: flex;
     gap: 1rem;
+}
+
+span {
+    display: inline-flex;
 }
 
 div {

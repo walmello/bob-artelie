@@ -1,20 +1,25 @@
 ---
 import Navbar from "../../../shared/components/Navbar.astro"
-const site = import.meta.env.DEV ? 'http://192.168.1.101:4322/' : ''
-const app = import.meta.env.DEV ? 'http://192.168.1.101:4321/' : ''
 ---
+
+<script>
+    import { auth } from "../../../shared/scripts/Supabase";
+    (window as any).auth = auth
+</script>
 
 <Navbar>
     <div>
         <ul>
-            <li><a role="link" href="#">Cursos</a></li>
-            <li><a role="link" href="#">Cursos</a></li>
-            <li><a role="link" href="#">Cursos</a></li>
+            <li><a role="link" href="#">Home</a></li>
+            <li><a role="link" href="#">Meus Cursos</a></li>
+            <li><a role="link" href="#">Novos Cursos</a></li>
+            <li><a role="link" href="#">Certificados</a></li>
         </ul>
-        <a role="link" href={site}>LOGO</a>
         <ul>
-            <li><a href={app}>Login</a></li>
-            <li><a href={app}>Registrar</a></li>
+            <li><a role="link" href="/login">Login</a></li>
+            <li><a role="link" href="/criar-conta">Criar Conta</a></li>
+            <li><a role="link" href="#" @click="await auth.logout() ; window.location.href = ''">Sair</a></li>
+            <li><a role="link" href={import.meta.env.SITE_URL}>Ir para o site</a></li>
         </ul>
     </div>
 </Navbar>
@@ -23,6 +28,7 @@ const app = import.meta.env.DEV ? 'http://192.168.1.101:4321/' : ''
     div {
         > a {
             display: none;
+            align-items: center;
         }
         
         ul {
@@ -49,9 +55,17 @@ const app = import.meta.env.DEV ? 'http://192.168.1.101:4321/' : ''
     
     @media (min-width: 767px) {
         div {
-            display: grid !important;
-            grid-template-columns: 5fr 1fr 5fr;
-            
+            display: flex ;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            > a {
+                display: flex;
+            }
+            > ul {
+                flex-direction: row;
+            }
+            /*
             > a {
                 display: flex;
             }
@@ -74,6 +88,7 @@ const app = import.meta.env.DEV ? 'http://192.168.1.101:4321/' : ''
             > *:nth-child(3){
                 margin-left: auto;
             }
+            */
         }
     }
 </style>

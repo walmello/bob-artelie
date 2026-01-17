@@ -1,12 +1,8 @@
----
-const site = import.meta.env.DEV ? 'http://localhost:4322/' : ''
----
-
 <div x-data="{open: false}">
     <header>
         <nav>
             <span id="menu-mobile">
-                <a role="link" href={site}>LOGO</a>
+                <a role="link" href="/">LOGO</a>
                 <a @click="open = !open">
                     <span x-show="!open">☰</span>
                     <span x-cloak x-show="open" x-cloak>✕</span>
