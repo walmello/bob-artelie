@@ -51,19 +51,7 @@ export class User {
         }
         return this
     }
-    
-    /*
-    async getBaserow(api, params = {}){
-    const { data: { session : { access_token: token } } } = await supabase.auth.getSession();
-    
-    const baserow = new Baserow(token)
-    baserow.base = 'https://seqolypxaaqyrwzcwktp.supabase.co/functions/v1/baserow/'
-    baserow.auth = () => `Bearer ${token}`
-    return baserow
-    const users = new Table('794809', baserow)
-    }
-    */
-    
+
     async function(api){
         const { data: { session : { access_token: token } } } = await supabase.auth.getSession();
         const endpoint = `https://seqolypxaaqyrwzcwktp.supabase.co/functions/v1/${api}`
@@ -87,8 +75,12 @@ export class User {
     }
     
     async hasCourse(id){
-        const courses = await user.profile['Cursos Adquiridos'].map(c => c.id)
-        return courses.includes(id)
+        const has = await user.profile['Cursos Adquiridos'].some(c => c.id == id)
+        return has
+    }
+
+    async getCourse(id){
+        return await courses.get(id)
     }
     
     async getCourses(){

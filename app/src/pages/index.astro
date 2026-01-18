@@ -3,12 +3,12 @@ import Layout from '../templates/Layout.astro'
 ---
 
 <Layout>
-    <section>
+    <section x-cloak x-show="user.authenticated">
         <div>
-            <h1>Bem vindo <span x-text="user.profile.Nome"></span>!</h1>
+            <h1 >Bem vindo <span x-text="user.profile.Nome"></span>!</h1>
         </div>
     </section>
-    <section>
+    <section x-cloak x-show="user.authenticated">
         <div>
             <h2>Meus cursos</h2>
         </div>
@@ -23,7 +23,7 @@ import Layout from '../templates/Layout.astro'
             </template>
         </section>
     </section>
-    <section>
+    <section x-cloak x-show="user.authenticated">
         <div>
             <h2>Meus certificados</h2>
         </div>

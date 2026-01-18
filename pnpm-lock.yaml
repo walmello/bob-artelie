@@ -40,6 +40,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.90.1
         version: 2.90.1
+      astro:
+        specifier: ^5.16.10
+        version: 5.16.10(@types/node@25.0.9)(rollup@4.55.1)(sass-embedded@1.97.2)(sass@1.97.2)(typescript@5.9.3)
 
   site:
     dependencies:
